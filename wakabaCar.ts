@@ -49,6 +49,123 @@ namespace wakabaCar {
         }
     }
 
+    //% weight=50 block="$select を2桁で表示する"
+    //% select.min=0 select.max=21 power.defl=1
+    export function showNunber2(select: number): void {
+        if (select < 10) {
+            basic.showNumber(select)
+        } else {
+            if (select == 10) {
+                basic.showLeds(`
+                    # . . # .
+                    # . # . #
+                    # . # . #
+                    # . # . #
+                    # . . # .
+                    `)
+            }
+            if (select == 11) {
+                basic.showLeds(`
+                    # . . # .
+                    # . . # .
+                    # . . # .
+                    # . . # .
+                    # . . # .
+                    `)
+            }
+        }
+        if (select == 12) {
+            basic.showLeds(`
+                # . . # .
+                # . # . #
+                # . . . #
+                # . . # .
+                # . # # #
+                `)
+        }
+        if (select == 13) {
+            basic.showLeds(`
+                # . # # .
+                # . . . #
+                # . # # #
+                # . . . #
+                # . # # .
+                `)
+        }
+        if (select == 14) {
+            basic.showLeds(`
+                # . # . #
+                # . # . #
+                # . # # #
+                # . . . #
+                # . . . #
+                `)
+        }
+        if (select == 15) {
+            basic.showLeds(`
+                # . # # #
+                # . # . .
+                # . # # .
+                # . . . #
+                # . # # .
+                `)
+        }
+        if (select == 16) {
+            basic.showLeds(`
+                # . . # #
+                # . # . .
+                # . # # .
+                # . # . #
+                # . . # .
+                `)
+        }
+        if (select == 17) {
+            basic.showLeds(`
+                # . # # #
+                # . . . #
+                # . . # .
+                # . . # .
+                # . . # .
+                `)
+        }
+        if (select == 18) {
+            basic.showLeds(`
+                # . . # .
+                # . # . #
+                # . . # .
+                # . # . #
+                # . . # .
+                `)
+        }
+        if (select == 19) {
+            basic.showLeds(`
+                # . . # .
+                # . # . #
+                # . . # #
+                # . . . #
+                # . # # .
+                `)
+        }
+        if (select == 20) {
+            basic.showLeds(`
+                # # . # .
+                . # # . #
+                . # # . #
+                # . # . #
+                # # . # .
+                `)
+        }
+        if (select == 21) {
+            basic.showLeds(`
+                # # . # .
+                . # . # .
+                . # . # .
+                # . . # .
+                # # . # .
+                `)
+        }
+    }
+
     //% weight=85 block="$tristate モーターを止める"
     export function stopMotor(tristate: Tristate): void {
         setMotorPower(tristate, 0)
