@@ -9,6 +9,7 @@ let rightSensor = 0
 let leftSensor = 0
 let psdSensor = 0
 let closeness = 0
+let dangerousLevel = 4
 let rightMotorPower = 0
 let leftMotorPower = 0
 let stopByButtonIsPressed = true
@@ -188,7 +189,7 @@ namespace wakabaCar {
     export function showStatus(): void {
         rightSensor = pins.analogReadPin(AnalogPin.P0)
         leftSensor = pins.analogReadPin(AnalogPin.P1)
-        psdSensor = pins.analogReadPin(AnalogPin.P2)
+        refreshPsdSensor()
         basic.clearScreen()
         if (rightSensor > 100) {
             led.plot(0, 4)
@@ -250,32 +251,47 @@ namespace wakabaCar {
         if (leftSensor > 1000) {
             led.plot(3, 0)
         }
+        if (closeness == 1) {
+            led.plot(2, 4)
+        }
+        if (closeness == 2) {
+            led.plot(2, 3)
+        }
+        if (closeness == 3) {
+            led.plot(2, 2)
+        }
+        if (closeness == 4) {
+            led.plot(2, 1)
+        }
+        if (closeness == 5) {
+            led.plot(2, 0)
+        }
+    }
+
+    function refreshPsdSensor(): void {
+        psdSensor = pins.analogReadPin(AnalogPin.P2)
         closeness = 0
         if (psdSensor > 233) { // 0.75V/approx.40cm
             closeness = 1
-            led.plot(2, 4)
         }
         if (psdSensor > 310) { // 1.00V/approx.28cm
             closeness = 2
-            led.plot(2, 3)
         }
         if (psdSensor > 465) { // 1.50V/approx.17cm
             closeness = 3
-            led.plot(2, 2)
         }
         if (psdSensor > 543) { // 1.75V/approx.15cm
             closeness = 4
-            led.plot(2, 1)
         }
         if (psdSensor > 620) { // 2.00V/approx.12cm
             closeness = 5
-            led.plot(2, 0)
         }
     }
 
     //% block="ぶつかりそう"
     export function isDanger(): boolean {
-        return closeness > 2 ? true : false;
+        refreshPsdSensor()
+        return closeness >= dangerousLevel ? true : false;
     }
     //% block="$tristate センサーが黒っぽい"
     export function isBlack(tristate:Tristate): boolean {
@@ -299,6 +315,7 @@ namespace wakabaCar {
     }
     //% weight=14 block="近さ"
     export function getCloseness(): number {
+        refreshPsdSensor()
         return closeness
     }
     //% weight=13 block="右センサー"
@@ -322,9 +339,16 @@ namespace wakabaCar {
             leftMotorDirection = rotate
         }
     }
-    //% weight=1 block="黒っぽさを $value にする"
+    //% weight=2 block="黒っぽさを $value にする"
     //% value.min=0 value.max=1023 value.defl=500
     export function setBlackness(value:number): void {
         blackness = value;
+    }
+    //% weight=1 block="ぶつかりそうな近さを $value にする"
+    //% value.min=0 value.max=5 value.defl=4
+    export function setDangerousLevel(value:number): void {
+        //PSDセンサーは各種赤外線系のセンサーと干渉しがちで、
+        //物にも因るが、人感センサーのあるフロアで3以下は使えないと考えてよい
+        dangerousLevel = value;
     }
 }
