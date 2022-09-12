@@ -251,19 +251,19 @@ namespace wakabaCar {
         if (leftSensor > 1000) {
             led.plot(3, 0)
         }
-        if (closeness == 1) {
+        if (closeness >= 1) {
             led.plot(2, 4)
         }
-        if (closeness == 2) {
+        if (closeness >= 2) {
             led.plot(2, 3)
         }
-        if (closeness == 3) {
+        if (closeness >= 3) {
             led.plot(2, 2)
         }
-        if (closeness == 4) {
+        if (closeness >= 4) {
             led.plot(2, 1)
         }
-        if (closeness == 5) {
+        if (closeness >= 5) {
             led.plot(2, 0)
         }
     }
