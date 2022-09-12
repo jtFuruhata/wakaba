@@ -139,7 +139,7 @@ namespace wakabaCar {
         }
         if (select == 19) {
             basic.showLeds(`
-                # . . # .
+                # . # # .
                 # . # . #
                 # . . # #
                 # . . . #
