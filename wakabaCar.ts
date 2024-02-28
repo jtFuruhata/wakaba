@@ -1,8 +1,8 @@
 /**
 * Custom Blocks for SwitchEducation SEDU-058414 line tracer kit
-*   wakabaCar.ts    ver.2022.03.07a
+*   wakabaCar.ts    ver.2024.02.28a
 * by TANAHASHI, Jiro (aka jtFuruhata)
-* Copyright (C) 2022 jtLab, Hokkaido Information University
+* Copyright (C) 2022-2024 jtLab, Hokkaido Information University
 */
 
 let rightSensor = 0
@@ -171,6 +171,20 @@ namespace wakabaCar {
     export function stopMotor(tristate: Tristate): void {
         setMotorPower(tristate, 0)
         runCar()
+    }
+
+    //% weight=83 block="ライントレースする"
+    export function lineTrace(): void {
+        if (wakabaCar.isBlack(Tristate.both)) {
+            wakabaCar.stopMotor(Tristate.both)
+        } else {
+            if (wakabaCar.isBlack(Tristate.right)) {
+                wakabaCar.stopMotor(Tristate.right)
+            }
+            if (wakabaCar.isBlack(Tristate.left)) {
+                wakabaCar.stopMotor(Tristate.left)
+            }
+        }
     }
 
     //% weight=80 block="走らせる"
