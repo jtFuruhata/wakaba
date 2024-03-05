@@ -53,7 +53,7 @@ namespace wakabaCar {
     //% weight=50 block="$select を2桁で表示する"
     //% select.min=0 select.max=21 power.defl=1
     export function showNunber2(select: number): void {
-        if (select < 10) {
+        if (select < 10 || select > 21) {
             basic.showNumber(select)
         } else {
             if (select == 10) {
